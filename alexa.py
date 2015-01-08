@@ -1,7 +1,13 @@
+#!/usr/bin/python
+
 from BeautifulSoup import BeautifulSoup
 import urllib2, re
 import pickle
 
+#
+# Grab top links from Countries
+# It would be easier to use Amazon Alexa API
+#
 def Alexa_top_links (country,pagina=None):
     if pagina:
         page = urllib2.urlopen("http://www.alexa.com/topsites/countries;%d/%s"%(pagina,country))
@@ -88,6 +94,7 @@ def Alexa_Fetch_cats ():
             lista.append(href[23:])
     return [i for i in lista if i!='']
 
+# Serialize Data to Disk
 def TopCountries2Disk ():
     countries = Alexa_Fetch_countries()
     CountryRank = dict()
@@ -97,6 +104,7 @@ def TopCountries2Disk ():
     file = open("CountryRank.pck", "w")
     pickle.dump(CountryRank, file)
 
+# Unserialize Data
 def TopCats2Disk():
     cats = Alexa_Fetch_cats()
     catsRank = dict()
